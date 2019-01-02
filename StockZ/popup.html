@@ -4,8 +4,8 @@
     <meta charset="utf-8">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
   </head>
   <body>
@@ -22,8 +22,15 @@
 
     <div id="searchNewStock" style="display:none">
       <form>
-        <input class="searchBar" type="text" name="stockName" placeholder="Search for a new stock">
+        <input id="searchBarNewStock" class="searchBar" type="text" name="stockName" placeholder="Search for a new stock">
       </form>
+
+      <div id="searchTable">
+        <table style="width:100%">
+          <tbody>
+          </tbody>
+        </table>
+      </div>
     </div>
 
     <div id="emptyList" class="stockDiv">
@@ -34,8 +41,13 @@
       <button id="addNewStockButton" type="button" name="addNewStock" class="addNewStock">Add New Stock</button>
     </div>
 
-    <div id="cancelSearch" style="display:none">
-      <button id="cancelButton" type="button" name="addNewStock" class="cancelButton">Cancel</button>
+    <div id="doneSearch" style="display:none">
+      <button id="doneButton" type="button" name="doneSearch" class="doneButton">Done</button>
     </div>
+
+    <div id="cancelSearch" style="display:none">
+      <button id="cancelButton" type="button" name="cancelSearch" class="cancelButton">Cancel</button>
+    </div>
+
   </body>
 </html>

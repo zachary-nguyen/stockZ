@@ -12,10 +12,27 @@ header{
   width: 100%;
 }
 
+th{
+  text-align: center;
+}
+
 body{
   min-width: 400px;
   margin: 0;
   padding: 0;
+}
+
+.btn{
+  min-width: 400px;
+  max-width: 400px;
+  margin:0;
+  padding: 0;
+  background-color: #e2fff3;
+  border: none;
+}
+
+.btn:hover{
+  opacity: 0.5;
 }
 
 .searchBar{
@@ -30,14 +47,26 @@ body{
   width: 100%;
   font-size: 12;
   text-align: center;
-  background-color:#EDFEDC;
+  background-color:#a0ffd7;
   border: none;
   padding: 14px 28px;
 }
 .addNewStock:hover{
   opacity: 0.5;
 }
+.doneButton{
+  display: block;
+  width: 100%;
+  font-size: 12;
+  text-align: center;
+  background-color:#a0ffd7;
+  border: none;
+  padding: 14px 28px;
+}
 
+.doneButton:hover{
+  opacity: 0.5;
+}
 .cancelButton{
   display: block;
   width: 100%;
@@ -50,4 +79,11 @@ body{
 
 .cancelButton:hover{
   opacity: 0.5;
+}
+
+.refresh{
+  background-color: #282828;
+  float: right;
+  height: 50px;
+  border: none;
 }
