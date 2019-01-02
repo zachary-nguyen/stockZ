@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+  </head>
+  <body>
+    <script src="popup.js"></script>
+    <header>
+      StockZ
+    </header>
+    <div id="emptyList" class="stockDiv">
+        You're currently not tracking any stocks.
+    </div>
+
+    <div id="searchSubStock">
+      <form>
+        <input class="searchBar" type="text" name="stockName" placeholder="Search stock">
+      </form>
+    </div>
+
+    <div id="searchNewStock" class="searchBar">
+      <form>
+        <input class="searchBar" type="text" name="stockName" placeholder="Search for a new stock">
+      </form>
+    </div>
+
+    <div id="addNewStock">
+      <button id="addNewStockButton" type="button" name="addNewStock" class="addNewStock">Add New Stock</button>
+    </div>
+
+    <div id="cancelSearch">
+      <button id="addNewStockButton" type="button" name="addNewStock" class="cancelButton">Cancel</button>
+    </div>
+  </body>
+</html>

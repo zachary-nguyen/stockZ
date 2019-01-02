@@ -1,0 +1,16 @@
+{
+  "name": "StockX",
+  "version": "1.0",
+  "description": "Stay updated with the latest stock prices",
+  "permissions": ["activeTab"],
+  "options_page": "options.html",
+  "browser_action":{
+    "default_icon": "images/stockZ128.png",
+    "default_popup": "popup.html"
+  },
+  "icons": {
+    "128": "images/stockZ128.png"
+  },
+  "content_security_policy":"script-src 'self' https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js; object-src 'self'",
+  "manifest_version": 2
+}
