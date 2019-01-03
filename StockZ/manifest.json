@@ -1,8 +1,10 @@
 {
-  "name": "StockX",
+  "name": "StockZ",
   "version": "1.0",
   "description": "Stay updated with the latest stock prices",
-  "permissions": ["activeTab", "storage"],
+  "permissions": ["activeTab",
+    "storage"
+  ],
   "options_page": "options.html",
   "browser_action":{
     "default_icon": "images/stockZ128.png",

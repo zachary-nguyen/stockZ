@@ -2,13 +2,21 @@
 
 $(document).ready(function(){
   var buttons = [];
+  var subscribedStocks = [];
+
+  //populate subscribed on page load
+  chrome.storage.sync.get('foo', function(result) {
+    console.log('value fetched is ' + result.foo );
+  });
+
 
   //Add eventListener
   document.getElementById("addNewStockButton").addEventListener("click",addNewStock);
-  document.getElementById("cancelButton").addEventListener("click",cancel);
+  document.getElementById("cancelButton").addEventListener("click",cancelDone);
+  document.getElementById("doneButton").addEventListener("click",cancelDone);
   document.getElementById("searchBarNewStock").addEventListener("keyup",searchNewStock);
 
-  function cancel(){
+  function cancelDone(){
     //hide div
     document.getElementById("searchNewStock").style.display = "none";
     document.getElementById("cancelSearch").style.display = "none";
@@ -16,7 +24,11 @@ $(document).ready(function(){
 
 
     //display div
-    document.getElementById("emptyList").style.display = "block";
+    var tr = $("#searchSubStock tr");
+    console.log(tr.children().length);
+    if (tr.children().length == 0) {
+      document.getElementById("emptyList").style.display = "block";
+    }
     document.getElementById("searchSubStock").style.display = "block";
     document.getElementById("addNewStock").style.display = "block";
   }
@@ -53,11 +65,12 @@ $(document).ready(function(){
           for(var i = 0; i<foundStocks.length;i++){
             var tr = $('<tr/>');
             var btn = document.createElement('input');
+
             btn.type = "button";
             btn.className = "btn";
             btn.value = foundStocks[i]["1. symbol"] + " " + foundStocks[i]["2. name"] + " " + "(" + foundStocks[i]["4. region"] + ")";
             btn.id = `button${i}`;
-            console.log(btn);
+
             buttons.push(btn);
             btn.addEventListener("click",addStockToList);
             tr.append(btn);
@@ -75,10 +88,23 @@ $(document).ready(function(){
 
 
   function addStockToList(){
-    //iterate list of buttons and check which one is hit
     $("input").click(function(e){
         var idClicked = e.target.id;
-        console.log(idClicked);
+        //remove from the list and add it to subscribed list
+        if(idClicked !== "searchBarNewStock"){
+          var elem = document.getElementById(idClicked);
+          elem.parentNode.removeChild(elem);
+
+          var tr = $('<tr/>');
+          tr.append(elem);
+          $('#searchSubStock').append(tr);
+
+          //add the subscribed stock to storage
+          chrome.storage.sync.set({'foo': 'hello', 'bar': 'hi'}, function() {
+            console.log('Settings saved');
+          });
+
+        }
     });
   }
 
