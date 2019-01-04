@@ -1,6 +1,6 @@
 header{
   display: block;
-  min-width: 400px;
+  min-width: 600px;
   background-color: #282828;
   font-size: 20;
   color:white;
@@ -17,22 +17,22 @@ th{
 }
 
 body{
-  min-width: 400px;
+  min-width: 600px;
   margin: 0;
   padding: 0;
 }
 
 .btn{
-  min-width: 400px;
-  max-width: 400px;
+  min-width: 600px;
+  max-width: 600px;
   margin:0;
   padding: 0;
-  background-color: #FFF0EA;
+  background-color: #e5efff;
   border: none;
 }
 
 .btn:hover{
-  opacity: 0.5;
+  opacity: 0.75;
 }
 
 .searchBar{
@@ -52,7 +52,7 @@ body{
   padding: 14px 28px;
 }
 .addNewStock:hover{
-  opacity: 0.5;
+  opacity: 0.75;
 }
 .doneButton{
   display: block;
@@ -65,7 +65,7 @@ body{
 }
 
 .doneButton:hover{
-  opacity: 0.5;
+  opacity: 0.75;
 }
 .cancelButton{
   display: block;
@@ -78,12 +78,18 @@ body{
 }
 
 .cancelButton:hover{
-  opacity: 0.5;
+  opacity: 0.75;
 }
 
 .refresh{
   background-color: #282828;
   float: right;
+  width:100%;
+  color:white;
   height: 50px;
   border: none;
+}
+
+.refresh:hover{
+  opacity: 0.75;
 }

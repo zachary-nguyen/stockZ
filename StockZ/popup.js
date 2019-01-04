@@ -3,36 +3,44 @@
 $(document).ready(function(){
   var buttons = [];
   var subscribedStocks = [];
-
-  //populate subscribed on page load
-  chrome.storage.sync.get('foo', function(result) {
-    console.log('value fetched is ' + result.foo );
-  });
-
-
   //Add eventListener
   document.getElementById("addNewStockButton").addEventListener("click",addNewStock);
   document.getElementById("cancelButton").addEventListener("click",cancelDone);
   document.getElementById("doneButton").addEventListener("click",cancelDone);
   document.getElementById("searchBarNewStock").addEventListener("keyup",searchNewStock);
+  document.getElementById("refresh").addEventListener("click",refresh);
 
+  //populate subscribed on page load
+
+  chrome.storage.sync.get(null, function(items) {
+    var allKeys = Object.keys(items);
+    var tr = $("#searchSubStock tr");
+    if (allKeys.length == 0) {
+      document.getElementById("emptyList").style.display = "block";
+    }else{
+      document.getElementById("emptyList").style.display = "none";
+    }
+
+    allKeys.forEach(function(symbol){
+        fetchAndDisplayQuotes(symbol);
+        subscribedStocks.push(items);
+      });
+    })
+  });
+
+  //Cancel and Done buttons
   function cancelDone(){
     //hide div
     document.getElementById("searchNewStock").style.display = "none";
     document.getElementById("cancelSearch").style.display = "none";
     document.getElementById("doneSearch").style.display = "none";
 
-
     //display div
-    var tr = $("#searchSubStock tr");
-    console.log(tr.children().length);
-    if (tr.children().length == 0) {
-      document.getElementById("emptyList").style.display = "block";
-    }
     document.getElementById("searchSubStock").style.display = "block";
     document.getElementById("addNewStock").style.display = "block";
   }
 
+  //Add New stock button
   function addNewStock(){
     //hide other divs
     document.getElementById("emptyList").style.display = "none";
@@ -46,6 +54,7 @@ $(document).ready(function(){
 
   }
 
+  //Search functionality for adding new stock
   function searchNewStock(){
     var searchValue = document.getElementById("searchBarNewStock").value;
 
@@ -69,23 +78,38 @@ $(document).ready(function(){
             btn.type = "button";
             btn.className = "btn";
             btn.value = foundStocks[i]["1. symbol"] + " " + foundStocks[i]["2. name"] + " " + "(" + foundStocks[i]["4. region"] + ")";
-            btn.id = `button${i}`;
-
-            buttons.push(btn);
+            btn.id = `${foundStocks[i]["1. symbol"]}`;
+            btn.maxlength = "10";
             btn.addEventListener("click",addStockToList);
             tr.append(btn);
             $('#searchTable').append(tr);
           }
         }
-
       });
-      console.log(foundStocks);
     }else{
       $("#searchTable tr").remove(); //clear the table
     }
-
   }
 
+  function fetchAndDisplayQuotes(symbol){
+    var url = "https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=" + symbol + "&apikey=YXSSDW2H1ARGQA9K";
+    //get quotes from api
+    $.getJSON(url,function(data){
+        if(typeof data !== "undefined"){
+          var tr = $('<tr/>');
+          var btn = document.createElement('input');
+
+          btn.type = "button";
+          btn.className = "btn";
+          btn.value = symbol + " Price: $" + data["Global Quote"]["05. price"] +
+           " High: $" + data["Global Quote"]["03. high"] + " Low: $" + data["Global Quote"]["04. low"]
+           + " Change: " + data["Global Quote"]["10. change percent"];
+          btn.id = symbol;
+          tr.append(btn);
+          $('#searchSubStock').append(tr);
+        }
+      });
+  }
 
   function addStockToList(){
     $("input").click(function(e){
@@ -95,24 +119,19 @@ $(document).ready(function(){
           var elem = document.getElementById(idClicked);
           elem.parentNode.removeChild(elem);
 
-          var tr = $('<tr/>');
-          tr.append(elem);
-          $('#searchSubStock').append(tr);
-
+          fetchAndDisplayQuotes(idClicked);
           //add the subscribed stock to storage
-          chrome.storage.sync.set({'foo': 'hello', 'bar': 'hi'}, function() {
-            console.log('Settings saved');
+          chrome.storage.sync.set({[idClicked]: elem.value}, function() {
+            console.log('Saved to storage!');
           });
-
         }
     });
   }
 
-  // var input = document.getElementById("searchText");
-  // input.addEventListener("keyup",function(event){
-  // if(event.keyCode == 13){
-  //     $("#searchButtonId").click();
-  //   }
-  // });
-
-});
+  function refresh(){
+    location.reload();
+  }
+  //reset storage
+  // chrome.storage.sync.clear(function(){
+  //   console.log("success");
+  // })
