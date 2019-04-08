@@ -1,4 +1,4 @@
-# stockZ
+# StockZ
 Google chrome extension can be found in market.
 https://chrome.google.com/webstore/search/stockz
 
